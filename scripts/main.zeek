@@ -54,20 +54,8 @@ export {
 }
 
 const luhn_vector = vector(0, 2, 4, 6, 8, 1, 3, 5, 7, 9);
+const number_str = "0123456789";
 
-#Implements luhn algorithem to chaek if cc is a valid number.
-#function luhn_check(val: string): bool
-#	{
-#	local sum = 0;
-#	local odd = F;
-#	for ( char in gsub(val, /[^0-9]/, "") )
-#		{
-#		odd = ! odd;
-#		local digit = to_count(char);
-#		sum += ( odd ? digit : luhn_vector[digit] );
-#		}
-#	return sum % 10 == 0;
-#	}
 # This function checks if a given string passes the Luhn algorithm check.
 function luhn_check(cardNo: string): bool
 	{
@@ -77,7 +65,11 @@ function luhn_check(cardNo: string): bool
 
 	for ( i in reverse(cardNo) )
 		{
-		local d = to_count(i);
+
+		if ( i in number_str)
+			local d = to_count(i);
+		else
+			return F;
 		#local d = to_count(cardNo[to_count(i)]);
 
 		if ( isSecond )
